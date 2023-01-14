@@ -19,7 +19,56 @@ test('button has correct initial color, and updates when clicked', () => {
   expect(colorButton).toHaveTextContent('Change to red');
 });
 
-// test('butotn turns blue when clicked', () => {
-//   render(<App/ >);
-//   const colorButton = screen.getByRole('button', { name: 'Change to blue' });
-// });
+
+// 첫번째 인수는 테스트를 설명, 두번쨰는 오류가 발생하는지를 확인하기 위해 실행하는 함수
+test('initial conditions', () => {
+
+  render(<App />);
+  // check that the button starts out enabled
+  const colorButton = screen.getByRole('button', { name: 'Change to blue' });
+  expect(colorButton).toBeEnabled();
+
+  // check that the checkbox starts out unchecked
+  const checkbox = screen.getByRole('checkbox');
+  expect(checkbox).not.toBeChecked();
+
+});
+
+
+// quiz test 내가 푼거
+test('checkbox test', () => {
+  render(<App/>);
+
+  // check that the button starts out enabled
+  const colorButton = screen.getByRole('button', { name: 'Change to blue'});
+  expect(colorButton).toBeEnabled();
+
+  // check that the checkbox starts out unchecked
+  const checkbox = screen.getByRole('checkbox');
+
+  // click checkbox
+  fireEvent.click(checkbox);
+
+  // button disabled
+  expect(colorButton).toBeDisabled();
+
+  // click checkbox
+  fireEvent.click(checkbox);
+
+  // button abled
+  expect(colorButton).toBeEnabled();
+});
+
+// 퀴즈의 정답
+test('Checkbox disables button on first click and enables on second click', () => {
+  render(<App/>);
+
+  const checkbox = screen.getByRole('checkbox');
+  const button = screen.getByRole('button');
+
+  fireEvent.click(checkbox);
+  expect(button).toBeDisabled();
+
+  fireEvent.click(checkbox);
+  expect(button).toBeEnabled();
+});
