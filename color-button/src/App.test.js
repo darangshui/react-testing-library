@@ -2,6 +2,16 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import App from './App';
 import { replaceCamelWithSpaces } from './App';
 
+test('this is a h1 title tag', () => {
+  render(<App/>);
+  const titleTage = screen.getByRole('heading', { name: 'Hi there' });
+});
+
+test('this is h2 title tag', function() {
+  render(<App />);
+  const subTag = screen.getByRole('heading', { name: 'good morning' });
+})
+
 test('button has correct initial color, and updates when clicked', () => {
   render(<App />);
   // find an element with a role of button and text of 'Change to Midnight Blue'
